@@ -17,7 +17,7 @@ using System.Web.Services;
 [ScriptService]
 public class WebServiceSample : System.Web.Services.WebService
 {
-    // Remark for GitHub 3
+    // Remark for GitHub 4
     public WebServiceSample()
     {
 
