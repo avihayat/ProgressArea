@@ -116,7 +116,7 @@ ReloadOnShow="true" Style="z-index: 7001">
 <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" CssClass="demo-container no-bg" EnableAJAX="true">
          <asp:TextBox id="FinishedFlag" runat="server" ></asp:TextBox>
         <telerik:RadGrid ID="RadGrid1" RenderMode="Lightweight"  runat="server" 
-            AutoGenerateColumns="true" OnNeedDataSource="RadGrid1_NeedDataSource"
+            AutoGenerateColumns="false" OnNeedDataSource="RadGrid1_NeedDataSource"
             FilterType="CheckList" OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested"
             AllowFilteringByColumn="true" 
             AllowSorting="true" AllowMultiRowSelection="True">
@@ -136,8 +136,20 @@ ReloadOnShow="true" Style="z-index: 7001">
                     <telerik:GridClientSelectColumn UniqueName="ClientSelectColumn">
                     </telerik:GridClientSelectColumn>
                     <telerik:GridBoundColumn DataField="ID" UniqueName="ID" HeaderText="Id" 
-                        FilterControlAltText="Filter ContactTitle column Id"
-                        FilterCheckListEnableLoadOnDemand="true" AutoPostBackOnFilter="true" >
+                        FilterControlAltText="Filter Id column"
+                        FilterCheckListEnableLoadOnDemand="true" AutoPostBackOnFilter="true">
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="Items" UniqueName="Items" HeaderText="Items" 
+                        FilterControlAltText="Filter items column"
+                        FilterCheckListEnableLoadOnDemand="true" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="Rate" UniqueName="Rate" HeaderText="Rate" 
+                        FilterControlAltText="Filter rate column"
+                        FilterCheckListEnableLoadOnDemand="true" AutoPostBackOnFilter="true">
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="Status" UniqueName="Status" HeaderText="Status" 
+                        FilterControlAltText="Filter Status column"
+                        FilterCheckListEnableLoadOnDemand="true" AutoPostBackOnFilter="true">
                     </telerik:GridBoundColumn>
                 </Columns>
             </MasterTableView>
