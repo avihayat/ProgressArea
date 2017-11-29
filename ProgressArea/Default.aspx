@@ -2,12 +2,28 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns='http://www.w3.org/1999/xhtml' dir="rtl">
-<head runat="server" dir="rtl">
+<head runat="server">
     <title>Telerik ASP.NET Example</title>
+    <style type="text/css">
+        .RadMenu_rtl  .rgFilterListMenu  .rlbItem, .RadMenu_rtl  .rgFilterListMenu .rlbCheckAllItems {
+            text-align: right;
+        }
+
+        .RadMenu_rtl .rmScrollWrap > .rmVertical:before {
+            border-width: 0 0 0 1px;
+            left: 0;
+            right: auto
+        }
+
+        body {background-color: powderblue;}
+        h1   {color: blue;}
+        p    {color: red;}
+    </style>
 </head>
 
 <body>
     <telerik:RadCodeBlock runat="server">
+
     <script type="text/javascript">
         function pageLoad(sender, args) {
             var $ = $telerik.$;
@@ -85,6 +101,9 @@
         </AjaxSettings>
         </telerik:RadAjaxManager>
 
+
+
+
 <telerik:RadWindowManager runat="server" ID="radWindowManager" EnableShadow="true"
 RenderMode="Auto" ShowContentDuringLoad="true" VisibleStatusbar="false"
 ReloadOnShow="true" Style="z-index: 7001">
@@ -94,13 +113,13 @@ ReloadOnShow="true" Style="z-index: 7001">
          <asp:TextBox id="FinishedFlag" runat="server" ></asp:TextBox>
         <telerik:RadGrid ID="RadGrid1" RenderMode="Lightweight"  runat="server" 
             AutoGenerateColumns="true" OnNeedDataSource="RadGrid1_NeedDataSource"
-            EnableHeaderContextMenu="true" FilterType="HeaderContext" OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested"
+            FilterType="HeaderContext" OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested"
             AllowFilteringByColumn="true" 
             AllowSorting="true" AllowMultiRowSelection="True">
             <ClientSettings AllowKeyboardNavigation="true">
                 <Selecting AllowRowSelect="True" />
             </ClientSettings>
-            <MasterTableView ShowHeadersWhenNoRecords="true" CommandItemDisplay="Top">
+            <MasterTableView ShowHeadersWhenNoRecords="true" CommandItemDisplay="Top" EnableHeaderContextMenu="true" >
                 <CommandItemTemplate>
                 <div class="rgCommandCellRight">
                     <telerik:RadPushButton runat="server" ID="PerfromLinkButton"

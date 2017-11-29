@@ -64,7 +64,7 @@ public partial class _Default : System.Web.UI.Page
         RadContextMenu menu = RadGrid1.HeaderContextMenu;
         string[] valuesToHide = { "GroupBy", "UnGroupBy", "topGroupSeperator", "bottomGroupSeperator",
                                   "SortAsc", "SortDesc", "SortNone",
-                                  "ColumnsContainer", "filterMenuSeparator", "_FilterList", "_FilterMenuParent"};
+                                  "ColumnsContainer", "_filterMenuSeparator", "_FilterList", "_FilterMenuParent"};
         string s = string.Empty;
         foreach (RadMenuItem item in menu.Items)
         {
@@ -72,6 +72,16 @@ public partial class _Default : System.Web.UI.Page
             if (valuesToHide.Contains(item.Value))
             {
                 item.Visible = false;
+            }
+            if (item.Value == "FilterMenuParent")
+            {
+                foreach (Control ctrl in item.Controls)
+                {
+                    if (!ctrl.ClientID.EndsWith("HCFMFilterButton") && !ctrl.ClientID.EndsWith("HCFMClearFilterButton"))
+                    {
+                        ctrl.Visible = false;
+                    }
+                }
             }
         }
     }
