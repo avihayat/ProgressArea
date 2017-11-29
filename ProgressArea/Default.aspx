@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns='http://www.w3.org/1999/xhtml'>
-<head runat="server">
+<html xmlns='http://www.w3.org/1999/xhtml' dir="rtl">
+<head runat="server" dir="rtl">
     <title>Telerik ASP.NET Example</title>
 </head>
 
@@ -90,14 +90,16 @@ RenderMode="Auto" ShowContentDuringLoad="true" VisibleStatusbar="false"
 ReloadOnShow="true" Style="z-index: 7001">
 </telerik:RadWindowManager>
 
-<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" CssClass="demo-container no-bg">
+<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" CssClass="demo-container no-bg" EnableAJAX="true">
          <asp:TextBox id="FinishedFlag" runat="server" ></asp:TextBox>
-        <telerik:RadGrid ID="RadGrid1" runat="server" AutoGenerateColumns="true" OnNeedDataSource="RadGrid1_NeedDataSource"
-            AllowMultiRowSelection="True">
+        <telerik:RadGrid ID="RadGrid1" RenderMode="Lightweight"  runat="server" 
+            AutoGenerateColumns="true" OnNeedDataSource="RadGrid1_NeedDataSource"
+            EnableHeaderContextMenu="true" FilterType="HeaderContext" OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested"
+            AllowFilteringByColumn="true" 
+            AllowSorting="true" AllowMultiRowSelection="True">
             <ClientSettings AllowKeyboardNavigation="true">
                 <Selecting AllowRowSelect="True" />
             </ClientSettings>
-
             <MasterTableView ShowHeadersWhenNoRecords="true" CommandItemDisplay="Top">
                 <CommandItemTemplate>
                 <div class="rgCommandCellRight">
@@ -107,10 +109,13 @@ ReloadOnShow="true" Style="z-index: 7001">
                     </telerik:RadPushButton>
                 </div>
             </CommandItemTemplate>
-
                 <Columns>
                     <telerik:GridClientSelectColumn UniqueName="ClientSelectColumn">
                     </telerik:GridClientSelectColumn>
+                    <telerik:GridBoundColumn DataField="ID" UniqueName="ID" HeaderText="Id" 
+                        FilterControlAltText="Filter ContactTitle column Id"
+                        FilterCheckListEnableLoadOnDemand="true" AutoPostBackOnFilter="true" >
+                    </telerik:GridBoundColumn>
                 </Columns>
             </MasterTableView>
         </telerik:RadGrid>

@@ -1,5 +1,6 @@
 ﻿using Model.ViewModel.Rad;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -56,6 +57,62 @@ public partial class _Default : System.Web.UI.Page
         }
 
         Session["Table"] = dtValues;
+    }
+
+    protected void Page_PreRenderComplete(object sender, EventArgs e)
+    {
+        RadContextMenu menu = RadGrid1.HeaderContextMenu;
+        string[] valuesToHide = { "GroupBy", "UnGroupBy", "topGroupSeperator", "bottomGroupSeperator",
+                                  "SortAsc", "SortDesc", "SortNone",
+                                  "ColumnsContainer", "filterMenuSeparator", "_FilterList", "_FilterMenuParent"};
+        string s = string.Empty;
+        foreach (RadMenuItem item in menu.Items)
+        {
+            s += item.Value + ",";
+            if (valuesToHide.Contains(item.Value))
+            {
+                item.Visible = false;
+            }
+        }
+    }
+    private class DataRowComparer : IEqualityComparer<DataRow>
+    {
+        private string dataField;
+        public DataRowComparer(string dataField)
+        {
+            this.dataField = dataField;
+        }
+        public bool Equals(DataRow x, DataRow y)
+        {
+            return x[dataField].ToString() == y[dataField].ToString();
+        }
+        public int GetHashCode(DataRow dataRow)
+        {
+            return dataRow[dataField].GetHashCode();
+        }
+    }
+    private DataTable GetListBoxSource(string dataField)
+    {
+        dtValues = (DataTable)Session["Table"];
+        DataTable table = dtValues.Clone();
+        table.Rows.Clear();
+        dtValues.Rows.Cast<DataRow>().Distinct<DataRow>(new DataRowComparer(dataField))
+            .ToList().ForEach(x => table.ImportRow(x));
+        return table;
+    }
+    protected void RadGrid1_FilterCheckListItemsRequested(object sender, GridFilterCheckListItemsRequestedEventArgs e)
+    {
+        string DataField = (e.Column as IGridDataColumn).GetActiveDataField();
+
+        dtValues = (DataTable)Session["Table"];
+        var productsQuery = dtValues.AsEnumerable().Select(rec=> rec.Field<string>(DataField));
+        var selectedColumn = from m in dtValues.AsEnumerable() select new { Text = m.Field<string>(DataField) };
+
+        e.ListBox.DataSource = GetListBoxSource(DataField);
+        e.ListBox.DataKeyField = DataField;
+        e.ListBox.DataTextField = DataField;
+        e.ListBox.DataValueField = DataField;
+        e.ListBox.DataBind();
     }
 
     bool bCanceledByUser = false;
