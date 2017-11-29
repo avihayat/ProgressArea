@@ -15,6 +15,10 @@
             right: auto
         }
 
+        .RadMenu_rtl  .rlbItem, .RadMenu_rtl  .rlbCheckAllItems {
+            text-align: right;
+        }
+        
         body {background-color: powderblue;}
         h1   {color: blue;}
         p    {color: red;}
@@ -113,7 +117,7 @@ ReloadOnShow="true" Style="z-index: 7001">
          <asp:TextBox id="FinishedFlag" runat="server" ></asp:TextBox>
         <telerik:RadGrid ID="RadGrid1" RenderMode="Lightweight"  runat="server" 
             AutoGenerateColumns="true" OnNeedDataSource="RadGrid1_NeedDataSource"
-            FilterType="HeaderContext" OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested"
+            FilterType="CheckList" OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested"
             AllowFilteringByColumn="true" 
             AllowSorting="true" AllowMultiRowSelection="True">
             <ClientSettings AllowKeyboardNavigation="true">
