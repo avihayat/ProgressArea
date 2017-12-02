@@ -105,9 +105,6 @@
         </AjaxSettings>
         </telerik:RadAjaxManager>
 
-
-
-
 <telerik:RadWindowManager runat="server" ID="radWindowManager" EnableShadow="true"
 RenderMode="Auto" ShowContentDuringLoad="true" VisibleStatusbar="false"
 ReloadOnShow="true" Style="z-index: 7001">
@@ -117,13 +114,14 @@ ReloadOnShow="true" Style="z-index: 7001">
          <asp:TextBox id="FinishedFlag" runat="server" ></asp:TextBox>
         <telerik:RadGrid ID="RadGrid1" RenderMode="Lightweight"  runat="server" 
             AutoGenerateColumns="false" OnNeedDataSource="RadGrid1_NeedDataSource"
-            FilterType="CheckList" OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested"
+            FilterType="HeaderContext" OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested" 
+            EnableHeaderContextMenu="true"  EnableHeaderContextFilterMenu="true"
             AllowFilteringByColumn="true" 
             AllowSorting="true" AllowMultiRowSelection="True">
             <ClientSettings AllowKeyboardNavigation="true">
                 <Selecting AllowRowSelect="True" />
             </ClientSettings>
-            <MasterTableView ShowHeadersWhenNoRecords="true" CommandItemDisplay="Top" EnableHeaderContextMenu="true" >
+            <MasterTableView ShowHeadersWhenNoRecords="true" CommandItemDisplay="Top" >
                 <CommandItemTemplate>
                 <div class="rgCommandCellRight">
                     <telerik:RadPushButton runat="server" ID="PerfromLinkButton"

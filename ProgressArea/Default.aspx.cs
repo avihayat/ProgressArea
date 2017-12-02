@@ -1,17 +1,15 @@
-﻿using Model.ViewModel.Rad;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 using Telerik.Web.UI;
 using Telerik.Web.UI.Upload;
+
+using Model.ViewModel.Rad;
 
 public partial class _Default : System.Web.UI.Page
 {
@@ -73,16 +71,16 @@ public partial class _Default : System.Web.UI.Page
             {
                 item.Visible = false;
             }
-            if (item.Value == "FilterMenuParent")
-            {
-                foreach (Control ctrl in item.Controls)
-                {
-                    if (!ctrl.ClientID.EndsWith("HCFMFilterButton") && !ctrl.ClientID.EndsWith("HCFMClearFilterButton"))
-                    {
-                        ctrl.Visible = false;
-                    }
-                }
-            }
+            //if (item.Value == "FilterMenuParent")
+            //{
+            //    foreach (Control ctrl in item.Controls)
+            //    {
+            //        if (!ctrl.ClientID.EndsWith("HCFMFilterButton") && !ctrl.ClientID.EndsWith("HCFMClearFilterButton"))
+            //        {
+            //            ctrl.Visible = false;
+            //        }
+            //    }
+            //}
         }
     }
     private class DataRowComparer : IEqualityComparer<DataRow>
