@@ -110,12 +110,12 @@ RenderMode="Auto" ShowContentDuringLoad="true" VisibleStatusbar="false"
 ReloadOnShow="true" Style="z-index: 7001">
 </telerik:RadWindowManager>
 
-<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" CssClass="demo-container no-bg" EnableAJAX="true">
+<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" CssClass="demo-container no-bg">
          <asp:TextBox id="FinishedFlag" runat="server" ></asp:TextBox>
         <telerik:RadGrid ID="RadGrid1" RenderMode="Lightweight"  runat="server" 
             AutoGenerateColumns="false" OnNeedDataSource="RadGrid1_NeedDataSource"
-            FilterType="HeaderContext" OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested" 
-            EnableHeaderContextMenu="true"  EnableHeaderContextFilterMenu="true"
+            FilterType="HeaderContext" EnableHeaderContextMenu="true"  EnableHeaderContextFilterMenu="true"
+            OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested" 
             AllowFilteringByColumn="true" 
             AllowSorting="true" AllowMultiRowSelection="True">
             <ClientSettings AllowKeyboardNavigation="true">
