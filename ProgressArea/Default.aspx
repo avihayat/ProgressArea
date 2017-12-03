@@ -112,29 +112,34 @@
         </telerik:RadAjaxManager>
                 <script type="text/javascript">
                     //Put your JavaScript code here.
+                    function onMenuShowing(sender, args) {
+                        RadContextMenuOnMenuShowing(sender, args);
+                    }
+                    function onMenuShown(sender, args) {
+                        if (gridCol._data.UniqueName == "ID") {
+                            RadContextMenu_Hide(gridCol, sender, "FirstCond");
+                        }
+                        RadContextMenu_Hide(RadContextMenu_GetCurCol(), sender, "SecondCond");
+
+                        RadContextMenuOnMenuShown(sender, args);
+                    }
+                    function onMenuHiding(sender, args) {
+                        RadContextMenuOnMenuHiding(sender, args);
+                    }
+
+
+
                     var controlIDs = [];
                     var gridCol;
-                    function menuShowing(sender, args) {
+                    function RadContextMenu_GetCurCol() {
+                        return gridCol;
+                    }
+                    function RadContextMenuOnMenuShowing(sender, args) {
                         gridCol = args.get_gridColumn();
                     }
-                    function menuShown(sender, args) {
+                    function RadContextMenuOnMenuShown(sender, args) {
                         var container = $("#" + sender.get_id() + "_detached");
-                        var names = ["CMB", "TB", "DP", "NTB"];
 
-                        for (var i = 0; i < names.length; i++) {
-                            for (var k = 0; k < 2; k++) {
-                                var pos = k == 0 ? "First" : "Second";
-                                var control = $telerik.findControl(container[0], "HCFMR" + names[i] + pos + "Cond");
-                                if (control && control.get_visible()) {
-                                    var condition = k == 1 ? false : !gridCol._data.FilterCheckListEnableLoadOnDemand;
-                                    control.set_visible(condition);
-
-                                    if (!condition) {
-                                        controlIDs.push(control.get_id());
-                                    }
-                                }
-                            }
-                        }
                         container.find(".rgHCMAnd").hide();
                         if (!gridCol._data.FilterCheckListEnableLoadOnDemand) {
                             container.find(".rgHCMShow").show();
@@ -143,11 +148,28 @@
                             container.find(".rgHCMShow").hide();
                         }
                     }
-                    function menuHiding(sender, args) {
+                    function RadContextMenuOnMenuHiding(sender, args) {
                         $(controlIDs).each(function (i, ID) {
                             $find(ID).set_visible(true);
                         });
                         controlIDs = [];
+                    }
+                    function RadContextMenu_Hide(gridCol, sender, condName) {
+                        var container = $("#" + sender.get_id() + "_detached");
+                        var names = ["CMB", "TB", "DP", "NTB"];
+
+                        for (var i = 0; i < names.length; i++) {
+                            var pos = condName;
+                            var control = $telerik.findControl(container[0], "HCFMR" + names[i] + pos);
+                            if (control && control.get_visible()) {
+                                var condition = condName == "SecondCond" ? false : !gridCol._data.FilterCheckListEnableLoadOnDemand;
+                                control.set_visible(condition);
+
+                                if (!condition) {
+                                    controlIDs.push(control.get_id());
+                                }
+                            }
+                        }
                     }
         </script>
 <telerik:RadWindowManager runat="server" ID="radWindowManager" EnableShadow="true"
@@ -165,9 +187,9 @@ ReloadOnShow="true" Style="z-index: 7001">
             AllowSorting="true" AllowMultiRowSelection="True">
             <ClientSettings AllowKeyboardNavigation="true">
                 <Selecting AllowRowSelect="True" />
-                <ClientEvents OnHeaderMenuShowing="menuShowing" />
+                <ClientEvents OnHeaderMenuShowing="onMenuShowing" />
             </ClientSettings>
-            <HeaderContextMenu OnClientShown="menuShown" OnClientHiding="menuHiding">
+            <HeaderContextMenu OnClientShown="onMenuShown" OnClientHiding="onMenuHiding">
                 <CollapseAnimation Type="None" />
             </HeaderContextMenu>
             <MasterTableView ShowHeadersWhenNoRecords="true" CommandItemDisplay="Top" >
