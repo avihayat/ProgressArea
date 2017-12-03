@@ -91,7 +91,13 @@
 
     <form id="form1" runat="server">
 
-        <telerik:RadScriptManager runat="server" ID="RadScriptManager1" />
+        <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+            <Scripts>
+                <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.Core.js" />
+                <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.jQuery.js" />
+                <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.jQueryInclude.js" />
+            </Scripts>
+        </telerik:RadScriptManager>
 <%--        <asp:ScriptManager runat="server" />--%>
 
 
@@ -104,7 +110,46 @@
             </telerik:AjaxSetting>
         </AjaxSettings>
         </telerik:RadAjaxManager>
+                <script type="text/javascript">
+                    //Put your JavaScript code here.
+                    var controlIDs = [];
+                    var gridCol;
+                    function menuShowing(sender, args) {
+                        gridCol = args.get_gridColumn();
+                    }
+                    function menuShown(sender, args) {
+                        var container = $("#" + sender.get_id() + "_detached");
+                        var names = ["CMB", "TB", "DP", "NTB"];
 
+                        for (var i = 0; i < names.length; i++) {
+                            for (var k = 0; k < 2; k++) {
+                                var pos = k == 0 ? "First" : "Second";
+                                var control = $telerik.findControl(container[0], "HCFMR" + names[i] + pos + "Cond");
+                                if (control && control.get_visible()) {
+                                    var condition = k == 1 ? false : !gridCol._data.FilterCheckListEnableLoadOnDemand;
+                                    control.set_visible(condition);
+
+                                    if (!condition) {
+                                        controlIDs.push(control.get_id());
+                                    }
+                                }
+                            }
+                        }
+                        container.find(".rgHCMAnd").hide();
+                        if (!gridCol._data.FilterCheckListEnableLoadOnDemand) {
+                            container.find(".rgHCMShow").show();
+                        }
+                        else {
+                            container.find(".rgHCMShow").hide();
+                        }
+                    }
+                    function menuHiding(sender, args) {
+                        $(controlIDs).each(function (i, ID) {
+                            $find(ID).set_visible(true);
+                        });
+                        controlIDs = [];
+                    }
+        </script>
 <telerik:RadWindowManager runat="server" ID="radWindowManager" EnableShadow="true"
 RenderMode="Auto" ShowContentDuringLoad="true" VisibleStatusbar="false"
 ReloadOnShow="true" Style="z-index: 7001">
@@ -120,7 +165,11 @@ ReloadOnShow="true" Style="z-index: 7001">
             AllowSorting="true" AllowMultiRowSelection="True">
             <ClientSettings AllowKeyboardNavigation="true">
                 <Selecting AllowRowSelect="True" />
+                <ClientEvents OnHeaderMenuShowing="menuShowing" />
             </ClientSettings>
+            <HeaderContextMenu OnClientShown="menuShown" OnClientHiding="menuHiding">
+                <CollapseAnimation Type="None" />
+            </HeaderContextMenu>
             <MasterTableView ShowHeadersWhenNoRecords="true" CommandItemDisplay="Top" >
                 <CommandItemTemplate>
                 <div class="rgCommandCellRight">
