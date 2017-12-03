@@ -110,66 +110,23 @@
             </telerik:AjaxSetting>
         </AjaxSettings>
         </telerik:RadAjaxManager>
+            <script type="text/javascript" src="Content/Script/radScript.js"></script>
+
                 <script type="text/javascript">
                     //Put your JavaScript code here.
                     function onMenuShowing(sender, args) {
-                        RadContextMenuOnMenuShowing(sender, args);
+                        graffiti.RadContextMenu.OnMenuShowing(sender, args);
                     }
                     function onMenuShown(sender, args) {
                         if (gridCol._data.UniqueName == "ID") {
-                            RadContextMenu_Hide(gridCol, sender, "FirstCond");
+                            graffiti.RadContextMenu.Hide(sender, "FirstCond");
                         }
-                        RadContextMenu_Hide(RadContextMenu_GetCurCol(), sender, "SecondCond");
+                        graffiti.RadContextMenu.Hide(sender, "SecondCond");
 
-                        RadContextMenuOnMenuShown(sender, args);
+                        graffiti.RadContextMenu.OnMenuShown(sender, args);
                     }
                     function onMenuHiding(sender, args) {
-                        RadContextMenuOnMenuHiding(sender, args);
-                    }
-
-
-
-                    var controlIDs = [];
-                    var gridCol;
-                    function RadContextMenu_GetCurCol() {
-                        return gridCol;
-                    }
-                    function RadContextMenuOnMenuShowing(sender, args) {
-                        gridCol = args.get_gridColumn();
-                    }
-                    function RadContextMenuOnMenuShown(sender, args) {
-                        var container = $("#" + sender.get_id() + "_detached");
-
-                        container.find(".rgHCMAnd").hide();
-                        if (!gridCol._data.FilterCheckListEnableLoadOnDemand) {
-                            container.find(".rgHCMShow").show();
-                        }
-                        else {
-                            container.find(".rgHCMShow").hide();
-                        }
-                    }
-                    function RadContextMenuOnMenuHiding(sender, args) {
-                        $(controlIDs).each(function (i, ID) {
-                            $find(ID).set_visible(true);
-                        });
-                        controlIDs = [];
-                    }
-                    function RadContextMenu_Hide(gridCol, sender, condName) {
-                        var container = $("#" + sender.get_id() + "_detached");
-                        var names = ["CMB", "TB", "DP", "NTB"];
-
-                        for (var i = 0; i < names.length; i++) {
-                            var pos = condName;
-                            var control = $telerik.findControl(container[0], "HCFMR" + names[i] + pos);
-                            if (control && control.get_visible()) {
-                                var condition = condName == "SecondCond" ? false : !gridCol._data.FilterCheckListEnableLoadOnDemand;
-                                control.set_visible(condition);
-
-                                if (!condition) {
-                                    controlIDs.push(control.get_id());
-                                }
-                            }
-                        }
+                        graffiti.RadContextMenu.OnMenuHiding(sender, args);
                     }
         </script>
 <telerik:RadWindowManager runat="server" ID="radWindowManager" EnableShadow="true"
