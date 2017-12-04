@@ -34,6 +34,7 @@ public partial class _Default : System.Web.UI.Page
         dtValues.Columns.Add("ID");
         dtValues.Columns.Add("Items");
         dtValues.Columns.Add("Rate");
+        dtValues.Columns.Add("MyDate");
         dtValues.Columns.Add("Status");
         if (Session["Table"] != null)
         {
@@ -49,6 +50,8 @@ public partial class _Default : System.Web.UI.Page
                 drValues["Id"] = i.ToString();
                 drValues["Items"] = "Item " + (i+1).ToString();
                 drValues["Rate"] = "Rate " + (i+1).ToString();
+                var dt = new DateTime(2017, i+1, 1);
+                drValues["MyDate"] = dt;
                 drValues["Status"] = "";
                 dtValues.Rows.Add(drValues);
             }

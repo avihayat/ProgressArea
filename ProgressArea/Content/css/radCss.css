@@ -1,0 +1,25 @@
+﻿/* align the filter text to thee rigth */
+.RadMenu_rtl .rgFilterListMenu .rlbItem, .RadMenu_rtl .rgFilterListMenu .rlbCheckAllItems {
+    text-align: right;
+}
+
+/* move filter icon stop thead left */
+.GridContextMenu .rgFilterListMenu .rgHCMFilter {
+    margin-top: 0px;
+}
+
+/* move the vertical grayer strip stop the left */
+.RadMenu_rtl .rmGroup:before, 
+.RadMenu_rtl .rmMultiColumn:before, 
+.RadMenu_rtl .rmScrollWrap > .rmHorizontal:before, 
+.RadMenu_rtl .rmScrollWrap > .rmVertical:before {
+    border-width: 0 0 0 1px;
+    left: 0px !important;
+    right: auto !important;
+}
+
+/* move to the rigth the vertical border at the top */
+.RadMenu_rtl .rmVertical > .rmSeparator {
+    margin-left: 32px !important;
+    margin-right: 0px !important;
+}

@@ -5,30 +5,18 @@
 <head runat="server">
     <title>Telerik ASP.NET Example</title>
     <style type="text/css">
-        .RadMenu_rtl  .rgFilterListMenu  .rlbItem, .RadMenu_rtl  .rgFilterListMenu .rlbCheckAllItems {
-            text-align: right;
-        }
-
-        .RadMenu_rtl .rmScrollWrap > .rmVertical:before {
-            border-width: 0 0 0 1px;
-            left: 0;
-            right: auto
-        }
-
-        .RadMenu_rtl  .rlbItem, .RadMenu_rtl  .rlbCheckAllItems {
-            text-align: right;
-        }
-        
         body {background-color: powderblue;}
         h1   {color: blue;}
         p    {color: red;}
     </style>
+     <link rel="Stylesheet" type="text/css" href="Content/css/radCss.css" />
 </head>
 
 <body>
     <telerik:RadCodeBlock runat="server">
 
     <script type="text/javascript">
+
         function pageLoad(sender, args) {
             var $ = $telerik.$;
             $("#<%= RadProgressArea1.ClientID%>").on('click', ".ruCancel",
@@ -111,7 +99,6 @@
         </AjaxSettings>
         </telerik:RadAjaxManager>
             <script type="text/javascript" src="Content/Script/radScript.js"></script>
-
                 <script type="text/javascript">
                     //Put your JavaScript code here.
                     function onMenuShowing(sender, args) {
@@ -124,6 +111,7 @@
                         graffiti.RadContextMenu.Hide(sender, "SecondCond");
 
                         graffiti.RadContextMenu.OnMenuShown(sender, args);
+                        $(".RadMenu_rtl .rmGroup .rmLeftImage").css({ 'left': '0px', 'right': 'inherit' });
                     }
                     function onMenuHiding(sender, args) {
                         graffiti.RadContextMenu.OnMenuHiding(sender, args);
@@ -173,6 +161,12 @@ ReloadOnShow="true" Style="z-index: 7001">
                         FilterControlAltText="Filter rate column"
                         FilterCheckListEnableLoadOnDemand="true" AutoPostBackOnFilter="true">
                     </telerik:GridBoundColumn>
+                    <telerik:GridDateTimeColumn DataField="MyDate" UniqueName="MyDate" HeaderText="Date" 
+                        DataFormatString="{0:dd/MM/yyyy}" DataType="System.DateTime" 
+                        FilterControlAltText="Filter date column"
+                        CurrentFilterFunction="GreaterThanOrEqualTo" EnableRangeFiltering="true"
+                        FilterCheckListEnableLoadOnDemand="false" AutoPostBackOnFilter="true">
+                    </telerik:GridDateTimeColumn>
                     <telerik:GridBoundColumn DataField="Status" UniqueName="Status" HeaderText="Status" 
                         FilterControlAltText="Filter Status column"
                         FilterCheckListEnableLoadOnDemand="true" AutoPostBackOnFilter="true">
