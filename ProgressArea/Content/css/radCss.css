@@ -4,14 +4,16 @@
 }
 
 /* move filter icon stop thead left */
-.GridContextMenu .rgFilterListMenu .rgHCMFilter {
-    margin-top: 0px;
+.RadMenu_rtl .rmGroup .rmImage, .RadMenu_rtl .rmGroup .rmLeftImage {
+    margin-left: 5px !important;
+    left: 0 !important;
+    right: inherit !important;
 }
 
 /* move the vertical grayer strip stop the left */
-.RadMenu_rtl .rmGroup:before, 
-.RadMenu_rtl .rmMultiColumn:before, 
-.RadMenu_rtl .rmScrollWrap > .rmHorizontal:before, 
+.RadMenu_rtl .rmGroup:before,
+.RadMenu_rtl .rmMultiColumn:before,
+.RadMenu_rtl .rmScrollWrap > .rmHorizontal:before,
 .RadMenu_rtl .rmScrollWrap > .rmVertical:before {
     border-width: 0 0 0 1px;
     left: 0px !important;

@@ -111,7 +111,7 @@
                         graffiti.RadContextMenu.Hide(sender, "SecondCond");
 
                         graffiti.RadContextMenu.OnMenuShown(sender, args);
-                        $(".RadMenu_rtl .rmGroup .rmLeftImage").css({ 'left': '0px', 'right': 'inherit' });
+                        //$(".RadMenu_rtl .rmGroup .rmLeftImage").css({ 'left': '0px', 'right': 'inherit' });
                     }
                     function onMenuHiding(sender, args) {
                         graffiti.RadContextMenu.OnMenuHiding(sender, args);
