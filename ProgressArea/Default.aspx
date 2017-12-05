@@ -13,70 +13,6 @@
 </head>
 
 <body>
-    <telerik:RadCodeBlock runat="server">
-
-    <script type="text/javascript">
-
-        function pageLoad(sender, args) {
-            var $ = $telerik.$;
-            $("#<%= RadProgressArea1.ClientID%>").on('click', ".ruCancel",
-                function () {
-                    var prm = Sys.WebForms.PageRequestManager.getInstance();
-                    if (prm.get_isInAsyncPostBack()) {
-                        console.log("abortPostBack")
-<%--                    var finished = $("#<%= FinishedFlag.ClientID %>").val();
-                    console.log(finished);--%>
-                        prm.abortPostBack();
-
-                        var url = "Ajax/WaitRadfProgress.ashx";
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: "{variant_id:'1'}",
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            success: function (data) {
-                                RefreshGrid();
-                                alert("OK: " + data);
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                alert("Error: " + textStatus + errorThrown);
-                            }
-                        });
-                    }
-                    //                    setTimeout(RefreshGrid, 500)
-                });
-
-                //        var url = "http://localhost:57558/WebService/WebServiceSample.asmx";
-                //        $.ajax({
-                //            type: "POST",
-                //            url: url + "/HelloWorld",
-                //            data: "{variant_id:'1'}",
-                //            contentType: "application/json; charset=utf-8",
-                //            dataType: "json",
-                //            success: function (data) {
-                //                alert("OK: " + data);
-                //            },
-                //            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                //                alert("Error: " + errorThrown);
-                //            }
-                //        });
-                //    }
-                //    //                    setTimeout(RefreshGrid, 500)
-                //});
-        }
-                
-        function RefreshGrid() {
-<%--            var finished = $find("<%= FinishedFlag.ClientID %>").val();
-            console.log(finished);
-            setTimeout(RefreshGrid, 500)--%>
-            var masterTable = $find("<%= RadGrid1.ClientID %>").get_masterTableView();
-            masterTable.rebind();
-            radalert("Canceled By User", "400", "250", "alert");
-        }
-    </script>
-</telerik:RadCodeBlock>
-
     <form id="form1" runat="server">
 
         <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
@@ -98,9 +34,74 @@
             </telerik:AjaxSetting>
         </AjaxSettings>
         </telerik:RadAjaxManager>
+        <telerik:RadCodeBlock runat="server">
+            <script type="text/javascript">
+                function pageLoad(sender, args) {
+                    //var $ = $telerik.$;
+                    //$(".RadGridRTL .rgOptions").each(function (index, value) {
+                    //    $(this).parent().prepend(this);
+                    //});
+                    $("#<%= RadProgressArea1.ClientID%>").on('click', ".ruCancel",
+                        function () {
+                            var prm = Sys.WebForms.PageRequestManager.getInstance();
+                            if (prm.get_isInAsyncPostBack()) {
+                                console.log("abortPostBack")
+        <%--                    var finished = $("#<%= FinishedFlag.ClientID %>").val();
+                            console.log(finished);--%>
+                                prm.abortPostBack();
+
+                                var url = "Ajax/WaitRadfProgress.ashx";
+                                $.ajax({
+                                    type: "POST",
+                                    url: url,
+                                    data: "{variant_id:'1'}",
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (data) {
+                                        RefreshGrid();
+                                        alert("OK: " + data);
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        alert("Error: " + textStatus + errorThrown);
+                                    }
+                                });
+                            }
+                            //                    setTimeout(RefreshGrid, 500)
+                        });
+
+                    //        var url = "http://localhost:57558/WebService/WebServiceSample.asmx";
+                    //        $.ajax({
+                    //            type: "POST",
+                    //            url: url + "/HelloWorld",
+                    //            data: "{variant_id:'1'}",
+                    //            contentType: "application/json; charset=utf-8",
+                    //            dataType: "json",
+                    //            success: function (data) {
+                    //                alert("OK: " + data);
+                    //            },
+                    //            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    //                alert("Error: " + errorThrown);
+                    //            }
+                    //        });
+                    //    }
+                    //    //                    setTimeout(RefreshGrid, 500)
+                    //});
+                }
+
+                function RefreshGrid() {
+        <%--            var finished = $find("<%= FinishedFlag.ClientID %>").val();
+                    console.log(finished);
+                    setTimeout(RefreshGrid, 500)--%>
+                    var masterTable = $find("<%= RadGrid1.ClientID %>").get_masterTableView();
+                    masterTable.rebind();
+                    radalert("Canceled By User", "400", "250", "alert");
+                }
+            </script>
+        </telerik:RadCodeBlock>
             <script type="text/javascript" src="Content/Script/radScript.js"></script>
                 <script type="text/javascript">
                     //Put your JavaScript code here.
+
                     function onMenuShowing(sender, args) {
                         graffiti.RadContextMenu.OnMenuShowing(sender, args);
                     }
