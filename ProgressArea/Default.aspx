@@ -131,7 +131,7 @@ ReloadOnShow="true" Style="z-index: 7001">
                 <Selecting AllowRowSelect="True" />
                 <ClientEvents OnHeaderMenuShowing="onMenuShowing" OnGridCreated="graffiti.adjustRTL" />
             </ClientSettings>
-            <HeaderContextMenu OnClientShown="onMenuShown" OnClientHiding="onMenuHiding">
+            <HeaderContextMenu OnClientShown="onMenuShown" OnClientHiding="onMenuHiding" >
                 <CollapseAnimation Type="None" />
             </HeaderContextMenu>
             <MasterTableView ShowHeadersWhenNoRecords="true" CommandItemDisplay="Top" >

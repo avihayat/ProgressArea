@@ -229,4 +229,17 @@ public partial class _Default : System.Web.UI.Page
         radWindowManager.RadAlert(sMsg, 400, 250, Page.Title, String.Empty);
     }
 
+    //protected void RadGrid1_ItemCommand(object sender, GridCommandEventArgs e)
+    //{
+    //    if (e.CommandName == "ClearFiltersCustom")
+    //    {
+    //        RadGrid1.MasterTableView.FilterExpression = string.Empty;
+    //        foreach (GridColumn column in RadGrid1.MasterTableView.RenderColumns)
+    //        {
+    //            column.CurrentFilterFunction = GridKnownFunction.NoFilter;
+    //            column.CurrentFilterValue = string.Empty;
+    //        }
+    //        RadGrid1.MasterTableView.Rebind();
+    //    }
+    //}
 }
