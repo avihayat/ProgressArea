@@ -37,10 +37,6 @@
         <telerik:RadCodeBlock runat="server">
             <script type="text/javascript">
                 function pageLoad(sender, args) {
-                    //var $ = $telerik.$;
-                    //$(".RadGridRTL .rgOptions").each(function (index, value) {
-                    //    $(this).parent().prepend(this);
-                    //});
                     $("#<%= RadProgressArea1.ClientID%>").on('click', ".ruCancel",
                         function () {
                             var prm = Sys.WebForms.PageRequestManager.getInstance();
@@ -133,7 +129,7 @@ ReloadOnShow="true" Style="z-index: 7001">
             AllowSorting="true" AllowMultiRowSelection="True">
             <ClientSettings AllowKeyboardNavigation="true">
                 <Selecting AllowRowSelect="True" />
-                <ClientEvents OnHeaderMenuShowing="onMenuShowing" />
+                <ClientEvents OnHeaderMenuShowing="onMenuShowing" OnGridCreated="graffiti.adjustRTL" />
             </ClientSettings>
             <HeaderContextMenu OnClientShown="onMenuShown" OnClientHiding="onMenuHiding">
                 <CollapseAnimation Type="None" />

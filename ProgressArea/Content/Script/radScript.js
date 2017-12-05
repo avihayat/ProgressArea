@@ -9,14 +9,12 @@ if (!graffiti) {
 
 $(function () {
     graffiti.init();
-    graffiti.adjustRTL();
 });
 
 graffiti.init = function () {
 }
 
 graffiti.adjustRTL = function() {
-    var $ = $telerik.$;
     $(".RadGridRTL .rgOptions").each(function (index, value) {
         $(this).parent().prepend(this);
     });
