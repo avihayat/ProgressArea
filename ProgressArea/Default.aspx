@@ -143,7 +143,7 @@ ReloadOnShow="true" Style="z-index: 7001">
                         Text="Start Processing" OnClick="PerfromLinkButton_Click">
                     </telerik:RadPushButton>
                     <telerik:RadPushButton runat="server" ID="ClearFilters"
-                        Text="Clear Filters" OnClick="RadButton_ClearAllFilters_Click">
+                         ToolTip="Clear Filters" OnClick="RadButton_ClearAllFilters_Click" Icon-CssClass="k-icon k-i-filter-clear ClearFiltersIcon">
                     </telerik:RadPushButton>
                 </div>
             </CommandItemTemplate>
