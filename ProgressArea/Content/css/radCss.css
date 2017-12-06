@@ -28,8 +28,8 @@
 
 /* change filter icon in grid header */
 .RadGrid .rgOptionsIcon:before, .RadGrid .rgOptSelectedIcon:before {
-    /*/content: "\e019"; */
-    content: "\e129" !important;
+    /*/content: "\e019";*/  /* original */
+    content: "\e129" !important; /* filter icon */
 }
 
 /* filter & clearFilter buttons */

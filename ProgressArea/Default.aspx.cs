@@ -229,6 +229,46 @@ public partial class _Default : System.Web.UI.Page
         radWindowManager.RadAlert(sMsg, 400, 250, Page.Title, String.Empty);
     }
 
+ //show filtering indicator
+protected void RadGrid1_PreRender(object sender, EventArgs e)
+    {
+        GridHeaderItem header = RadGrid1.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+        foreach (GridColumn col in RadGrid1.MasterTableView.RenderColumns
+               .OfType<IGridDataColumn>().Where(x => x.AllowFiltering))
+        {
+            if (!string.IsNullOrEmpty(col.EvaluateFilterExpression()))
+            {
+                TableCell cell = header[col.UniqueName];
+
+                //style the cell as desired (e.g., change class, background color, add image, etc.
+                cell.CssClass = "myFilteredColumnHeader";
+
+                cell.BackColor = System.Drawing.Color.Aqua;
+                cell.Style["background-image"] = "none";
+
+                cell.Controls.Add(new Image()
+                {
+                    ID = "FilterIndicator" + col.UniqueName,
+                    ImageUrl = "~/images/filterIndicator.png"
+                });
+            }
+        }
+    }
+
+    //clear filters
+    protected void RadButton_ClearAllFilters_Click(object sender, EventArgs e)
+    {
+        foreach (GridColumn column in RadGrid1.MasterTableView.Columns)
+        {
+            column.ListOfFilterValues = null; // CheckList values set to null will uncheck all the checkboxes
+
+            column.CurrentFilterFunction = GridKnownFunction.NoFilter;
+            column.CurrentFilterValue = string.Empty;
+        }
+        RadGrid1.MasterTableView.FilterExpression = string.Empty;
+        RadGrid1.MasterTableView.Rebind();
+    }
+
     //protected void RadGrid1_ItemCommand(object sender, GridCommandEventArgs e)
     //{
     //    if (e.CommandName == "ClearFiltersCustom")
@@ -242,4 +282,5 @@ public partial class _Default : System.Web.UI.Page
     //        RadGrid1.MasterTableView.Rebind();
     //    }
     //}
+
 }

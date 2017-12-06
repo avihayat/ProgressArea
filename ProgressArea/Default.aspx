@@ -126,7 +126,8 @@ ReloadOnShow="true" Style="z-index: 7001">
             FilterType="HeaderContext" EnableHeaderContextMenu="true"  EnableHeaderContextFilterMenu="true"
             OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested" 
             AllowFilteringByColumn="true" 
-            AllowSorting="true" AllowMultiRowSelection="True">
+            AllowSorting="true" AllowMultiRowSelection="True"
+             OnPreRender="RadGrid1_PreRender">
             <ClientSettings AllowKeyboardNavigation="true">
                 <Selecting AllowRowSelect="True" />
                 <ClientEvents OnHeaderMenuShowing="onMenuShowing" OnGridCreated="graffiti.adjustRTL" />
@@ -140,6 +141,9 @@ ReloadOnShow="true" Style="z-index: 7001">
                     <telerik:RadPushButton runat="server" ID="PerfromLinkButton"
                         CommandName="PerfromLinkSelected"
                         Text="Start Processing" OnClick="PerfromLinkButton_Click">
+                    </telerik:RadPushButton>
+                    <telerik:RadPushButton runat="server" ID="ClearFilters"
+                        Text="Clear Filters" OnClick="RadButton_ClearAllFilters_Click">
                     </telerik:RadPushButton>
                 </div>
             </CommandItemTemplate>
