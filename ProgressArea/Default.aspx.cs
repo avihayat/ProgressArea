@@ -241,16 +241,29 @@ protected void RadGrid1_PreRender(object sender, EventArgs e)
                 TableCell cell = header[col.UniqueName];
 
                 //style the cell as desired (e.g., change class, background color, add image, etc.
-                cell.CssClass = "myFilteredColumnHeader";
+                //cell.CssClass = "rgFiltered";
 
-                cell.BackColor = System.Drawing.Color.Aqua;
-                cell.Style["background-image"] = "none";
-
-                cell.Controls.Add(new Image()
+                if (cell.Controls != null)
                 {
-                    ID = "FilterIndicator" + col.UniqueName,
-                    ImageUrl = "~/images/filterIndicator.png"
-                });
+                    foreach (var ctrl in cell.Controls)
+                    {
+                        if (ctrl is WebControl)
+                        {
+                            var cssClass = ((WebControl)ctrl).CssClass;
+                            if (cssClass.Contains("rgOptions") && !cssClass.Contains("rgFiltered"))
+                                ((WebControl)ctrl).CssClass += " rgFiltered";
+                        }
+                    }
+                }
+
+                //cell.BackColor = System.Drawing.Color.Aqua;
+                //cell.Style["background-image"] = "none";
+
+                //cell.Controls.Add(new Image()
+                //{
+                //    ID = "FilterIndicator" + col.UniqueName,
+                //    ImageUrl = "~/images/filterIndicator.png"
+                //});
             }
         }
     }
