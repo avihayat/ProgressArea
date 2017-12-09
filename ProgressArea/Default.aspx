@@ -143,10 +143,14 @@ ReloadOnShow="true" Style="z-index: 7001">
                         Text="Start Processing" OnClick="PerfromLinkButton_Click">
                     </telerik:RadPushButton>
                     <telerik:RadPushButton runat="server" ID="ClearFilters"
-                         ToolTip="Clear Filters" OnClick="RadButton_ClearAllFilters_Click" Icon-CssClass="k-icon k-i-filter-clear ClearFiltersIcon">
+                         ToolTip="Clear Filters" OnClick="RadButton_ClearAllFilters_Click" Icon-CssClass="ClearAllFiltersIcon">
                     </telerik:RadPushButton>
                 </div>
             </CommandItemTemplate>
+            <ColumnGroups>
+                <telerik:GridColumnGroup HeaderText="Group" Name="Group1" HeaderStyle-HorizontalAlign="Center">
+                </telerik:GridColumnGroup>
+            </ColumnGroups>
                 <Columns>
                     <telerik:GridClientSelectColumn UniqueName="ClientSelectColumn">
                     </telerik:GridClientSelectColumn>
@@ -155,11 +159,11 @@ ReloadOnShow="true" Style="z-index: 7001">
                         FilterCheckListEnableLoadOnDemand="true" AutoPostBackOnFilter="true">
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="Items" UniqueName="Items" HeaderText="Items" 
-                        FilterControlAltText="Filter items column"
+                        FilterControlAltText="Filter items column" ColumnGroupName="Group1"
                         FilterCheckListEnableLoadOnDemand="true" AutoPostBackOnFilter="true" ShowFilterIcon="false">
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="Rate" UniqueName="Rate" HeaderText="Rate" 
-                        FilterControlAltText="Filter rate column"
+                        FilterControlAltText="Filter rate column" ColumnGroupName="Group1"
                         FilterCheckListEnableLoadOnDemand="true" AutoPostBackOnFilter="true">
                     </telerik:GridBoundColumn>
                     <telerik:GridDateTimeColumn DataField="MyDate" UniqueName="MyDate" HeaderText="Date" 

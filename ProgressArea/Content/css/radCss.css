@@ -1,4 +1,14 @@
-﻿/* align the filter text to thee rigth */
+﻿/* filter & clearFilter buttons */
+.GridContextMenu .rgFilterMenu .rgHCMFilter {
+    margin-left: 10px !important;
+}
+
+/* clear small filters icon */
+.ClearAllFiltersIcon:before {
+    content: "\e12a";
+}
+
+/* align the filter text to thee right */
 .RadMenu_rtl .rgFilterListMenu .rlbItem, .RadMenu_rtl .rgFilterListMenu .rlbCheckAllItems {
     text-align: right;
 }
@@ -32,18 +42,8 @@
     content: "\e129" !important; /* filter icon */
 }
 
-/* filter & clearFilter buttons */
-.GridContextMenu .rgFilterMenu .rgHCMFilter {
-     margin-left: 10px !important;
-}
-
 /* checck box & text in checklist !! check at home may use !imprtant */
 .RadListBox .rlbCheckAllItemsCheckBox, .RadListBox .rlbCheck {
     margin-right: -8px;
-    margin-left: 8px;
-}
-
-/* clear small filters */
-.ClearFiltersIcon:before {
-    content: "\e12a";
+    margin-left: 5px;
 }

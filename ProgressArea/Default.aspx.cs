@@ -229,46 +229,52 @@ public partial class _Default : System.Web.UI.Page
         radWindowManager.RadAlert(sMsg, 400, 250, Page.Title, String.Empty);
     }
 
- //show filtering indicator
-protected void RadGrid1_PreRender(object sender, EventArgs e)
+    //show filtering indicator
+    protected void RadGrid1_PreRender(object sender, EventArgs e)
     {
-        GridHeaderItem header = RadGrid1.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+        //GridHeaderItem header = RadGrid1.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+        var headers = RadGrid1.MasterTableView.GetItems(GridItemType.Header);
+ 
         foreach (GridColumn col in RadGrid1.MasterTableView.RenderColumns
                .OfType<IGridDataColumn>().Where(x => x.AllowFiltering))
         {
             if (!string.IsNullOrEmpty(col.EvaluateFilterExpression()))
             {
-                TableCell cell = header[col.UniqueName];
-
-                //style the cell as desired (e.g., change class, background color, add image, etc.
-                //cell.CssClass = "rgFiltered";
-
-                if (cell.Controls != null)
+                for (int i = 0; i < 1 /* headers.Count() */ ; i++)
                 {
-                    foreach (var ctrl in cell.Controls)
+                    GridHeaderItem header = headers[i] as GridHeaderItem;
+                    TableCell cell = header[col.UniqueName];
+
+                    //style the cell as desired (e.g., change class, background color, add image, etc.
+                    //cell.CssClass = "rgFiltered";
+
+                    if (cell != null && cell.Controls != null)
                     {
-                        if (ctrl is WebControl)
+                        foreach (var ctrl in cell.Controls)
                         {
-                            var cssClass = ((WebControl)ctrl).CssClass;
-                            if (cssClass.Contains("rgOptions") && !cssClass.Contains("rgFiltered"))
-                                ((WebControl)ctrl).CssClass += " rgFiltered";
+                            if (ctrl is WebControl)
+                            {
+                                var cssClass = ((WebControl)ctrl).CssClass;
+                                if (cssClass.Contains("rgOptions") && !cssClass.Contains("rgFiltered"))
+                                    ((WebControl)ctrl).CssClass += " rgFiltered";
+                            }
                         }
                     }
+
+                    cell.BackColor = System.Drawing.Color.Aqua;
+                    cell.Style["background-image"] = "none";
+
+                    //cell.Controls.Add(new Image()
+                    //{
+                    //    ID = "FilterIndicator" + col.UniqueName,
+                    //    ImageUrl = "~/images/filterIndicator.png"
+                    //});
                 }
-
-                //cell.BackColor = System.Drawing.Color.Aqua;
-                //cell.Style["background-image"] = "none";
-
-                //cell.Controls.Add(new Image()
-                //{
-                //    ID = "FilterIndicator" + col.UniqueName,
-                //    ImageUrl = "~/images/filterIndicator.png"
-                //});
             }
         }
     }
 
-    //clear filters
+    // Clear All Filters
     protected void RadButton_ClearAllFilters_Click(object sender, EventArgs e)
     {
         foreach (GridColumn column in RadGrid1.MasterTableView.Columns)
