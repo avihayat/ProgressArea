@@ -22,10 +22,16 @@ graffiti.adjustRTL = function() {
 
 var controlIDs = [];
 var gridCol;
+//var customWidthClassName = '';
 
-//graffiti.RadContextMenu.GetCurCol = function () {
-//    return gridCol;
-//}
+graffiti.RadContextMenu.SetCustomWidth = function (sender, width) {
+    var container = $("#" + sender.get_id() + "_detached");
+
+    container.addClass('CustomFilterWidth');
+    container.css("width", width);
+    //customWidthClassName = 'CustomFilterWidth_' + width;
+    //container.addClass(customWidthClassName);
+}
 
 graffiti.RadContextMenu.OnMenuShowing = function (sender, args) {
     gridCol = args.get_gridColumn();
@@ -44,10 +50,16 @@ graffiti.RadContextMenu.OnMenuShown = function (sender, args) {
 }
 
 graffiti.RadContextMenu.OnMenuHiding = function (sender, args) {
+    var container = $("#" + sender.get_id() + "_detached");
+
     $(controlIDs).each(function (i, ID) {
         $find(ID).set_visible(true);
     });
     controlIDs = [];
+
+    container.removeClass('CustomFilterWidth');
+    //container.addClass(customWidthClassName);
+    //customWidthClassName = '';
 }
 
 graffiti.RadContextMenu.Hide = function (sender, condName) {

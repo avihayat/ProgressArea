@@ -47,3 +47,21 @@
     margin-right: -8px;
     margin-left: 5px;
 }
+
+/* Menu filter width */
+div.CustomFilterWidth ul {
+    float: none !important;
+}
+
+div.CustomFilterWidth ul .rgFilterListMenu .rmContent {
+    max-width: none !important;
+}
+
+div.CustomFilterWidth ul .rmContent .RadListBox {
+    width: 100% !important;
+}
+
+div.CustomFilterWidth .RadInput, .RadInputMgr {
+    width: 100%;
+}
+

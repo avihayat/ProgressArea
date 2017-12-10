@@ -107,6 +107,10 @@
                         }
                         graffiti.RadContextMenu.Hide(sender, "SecondCond");
 
+                        if (gridCol._data.UniqueName == "Items") {
+                            graffiti.RadContextMenu.SetCustomWidth(sender, 425);
+                        }
+                        
                         graffiti.RadContextMenu.OnMenuShown(sender, args);
                         //$(".RadMenu_rtl .rmGroup .rmLeftImage").css({ 'left': '0px', 'right': 'inherit' });
                     }
@@ -132,7 +136,7 @@ ReloadOnShow="true" Style="z-index: 7001">
                 <Selecting AllowRowSelect="True" />
                 <ClientEvents OnHeaderMenuShowing="onMenuShowing" OnGridCreated="graffiti.adjustRTL" />
             </ClientSettings>
-            <HeaderContextMenu OnClientShown="onMenuShown" OnClientHiding="onMenuHiding" >
+            <HeaderContextMenu OnClientShown="onMenuShown" OnClientHiding="onMenuHiding"  CssClass="myCustomFilterWidth myCustomFilterWidth_500">
                 <CollapseAnimation Type="None" />
             </HeaderContextMenu>
             <MasterTableView ShowHeadersWhenNoRecords="true" CommandItemDisplay="Top" >
