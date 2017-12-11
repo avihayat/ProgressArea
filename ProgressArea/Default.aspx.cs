@@ -35,7 +35,7 @@ public partial class _Default : System.Web.UI.Page
         dtValues.Columns.Add("Items");
         dtValues.Columns.Add("Rate");
         dtValues.Columns.Add("MyDate");
-        dtValues.Columns.Add("State", typeof(int));
+        dtValues.Columns.Add("State", typeof(bool));
         dtValues.Columns.Add("Status");
         if (Session["Table"] != null)
         {
@@ -54,9 +54,11 @@ public partial class _Default : System.Web.UI.Page
                 var dt = new DateTime(2017, i+1, 1);
                 drValues["MyDate"] = dt;
                 if (i <= 3)
-                    drValues.SetField("State", i/4);
+                    drValues.SetField("State", DBNull.Value);
+                else if (i > 3 && i <= 7)
+                    drValues.SetField("State", true);
                 else
-                    drValues.SetField("State", i/4);
+                    drValues.SetField("State", false);
                 drValues["Status"] = "";
                 dtValues.Rows.Add(drValues);
             }
@@ -91,6 +93,24 @@ public partial class _Default : System.Web.UI.Page
             //}
         }
     }
+
+    protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+    {
+        if (e.Item is GridDataItem)
+        {
+            GridDataItem item = (GridDataItem)e.Item;
+            RadButton btn = (RadButton)item.FindControl("State");//accessing Label
+            //bool? itemValue = item.DataItem["State"];
+            object o = ((DataRowView)e.Item.DataItem)["State"];
+            bool? b;
+            if (o == DBNull.Value)
+                b = null;
+            else
+                b = (bool?)((DataRowView)e.Item.DataItem)["State"];
+            btn.SetSelectedToggleStateByValue( b.HasValue ? (b.Value ? "1" : "0") : "null");
+        }
+    }
+
     private class DataRowComparer : IEqualityComparer<DataRow>
     {
         private string dataField;
@@ -312,4 +332,6 @@ public partial class _Default : System.Web.UI.Page
     {
 
     }
+
+
 }

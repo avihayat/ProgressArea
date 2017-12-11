@@ -131,7 +131,8 @@ ReloadOnShow="true" Style="z-index: 7001">
             OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested" 
             AllowFilteringByColumn="true" 
             AllowSorting="true" AllowMultiRowSelection="True"
-             OnPreRender="RadGrid1_PreRender">
+             OnPreRender="RadGrid1_PreRender"
+             OnItemDataBound="RadGrid1_ItemDataBound">
             <ClientSettings AllowKeyboardNavigation="true">
                 <Selecting AllowRowSelect="True" />
                 <ClientEvents OnHeaderMenuShowing="onMenuShowing" OnGridCreated="graffiti.adjustRTL" />
@@ -179,7 +180,7 @@ ReloadOnShow="true" Style="z-index: 7001">
                     <telerik:GridTemplateColumn DataField="State" HeaderText="SelectToggleStateField" UniqueName="State" 
                         EnableHeaderContextMenu="false" ShowFilterIcon="false">
                         <ItemTemplate>
-                           <telerik:RadButton RenderMode="Lightweight" ID="ThreeStateCheckBox" runat="server" ButtonType="ToggleButton" ToggleType="CustomToggle"
+                           <telerik:RadButton RenderMode="Lightweight" ID="State" runat="server" ButtonType="ToggleButton" ToggleType="CustomToggle"
                                AutoPostBack="true" BackColor="transparent" OnToggleStateChanged="ThreeStateCheckBox_ToggleStateChanged"
                                Value='<%# Eval("State") %>'>
                                 <ToggleStates>
