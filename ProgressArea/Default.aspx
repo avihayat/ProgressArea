@@ -184,8 +184,8 @@ ReloadOnShow="true" Style="z-index: 7001">
                                AutoPostBack="true" BackColor="transparent" OnToggleStateChanged="ThreeStateCheckBox_ToggleStateChanged"
                                Value='<%# Eval("State") %>'>
                                 <ToggleStates>
-                                    <telerik:RadButtonToggleState Text="Unchecked" Value="0" PrimaryIconCssClass="p-i-checkbox"></telerik:RadButtonToggleState>
-                                    <telerik:RadButtonToggleState Text="Checked" Value="1" PrimaryIconCssClass="p-i-checkbox-checked"></telerik:RadButtonToggleState>
+                                    <telerik:RadButtonToggleState Text=" " Value="0" PrimaryIconCssClass="p-i-checkbox"></telerik:RadButtonToggleState>
+                                    <telerik:RadButtonToggleState Text=" " Value="1" PrimaryIconCssClass="p-i-checkbox-checked"></telerik:RadButtonToggleState>
                                     <telerik:RadButtonToggleState Text="Use Default" Value="null" PrimaryIconCssClass="p-i-three-state-indeterminate"></telerik:RadButtonToggleState>
                                 </ToggleStates>
                             </telerik:RadButton>
