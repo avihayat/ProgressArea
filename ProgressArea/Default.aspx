@@ -176,6 +176,34 @@ ReloadOnShow="true" Style="z-index: 7001">
                         CurrentFilterFunction="GreaterThanOrEqualTo" EnableRangeFiltering="true"
                         FilterCheckListEnableLoadOnDemand="false" AutoPostBackOnFilter="true">
                     </telerik:GridDateTimeColumn>
+                    <telerik:GridTemplateColumn DataField="State" HeaderText="SelectToggleStateField" UniqueName="State" 
+                        EnableHeaderContextMenu="false" ShowFilterIcon="false">
+                        <ItemTemplate>
+                           <telerik:RadButton RenderMode="Lightweight" ID="ThreeStateCheckBox" runat="server" ButtonType="ToggleButton" ToggleType="CustomToggle"
+                               AutoPostBack="true" BackColor="transparent" OnToggleStateChanged="ThreeStateCheckBox_ToggleStateChanged"
+                               Value='<%# Eval("State") %>'>
+                                <ToggleStates>
+                                    <telerik:RadButtonToggleState Text="Unchecked" Value="0" PrimaryIconCssClass="p-i-checkbox"></telerik:RadButtonToggleState>
+                                    <telerik:RadButtonToggleState Text="Checked" Value="1" PrimaryIconCssClass="p-i-checkbox-checked"></telerik:RadButtonToggleState>
+                                    <telerik:RadButtonToggleState Text="Use Default" Value="null" PrimaryIconCssClass="p-i-three-state-indeterminate"></telerik:RadButtonToggleState>
+                                </ToggleStates>
+                            </telerik:RadButton>
+                        </ItemTemplate>
+                    </telerik:GridTemplateColumn>
+<%--                    <telerik:GridTemplateColumn DataField="SelectToggleStateField" HeaderText="SelectToggleStateField">
+                        <ItemTemplate>
+                            <telerik:RadToggleButton runat="server" ID="RadToggleButton1"  SelectedToggleStateIndex='<%#Eval("State") %>' >
+                                <ToggleStates>
+                                    <telerik:ButtonToggleState Text="False" Value="0" CssClass="p-i-checkbox" >
+                                    </telerik:ButtonToggleState>
+                                    <telerik:ButtonToggleState Text="True" Value="1" CssClass="p-i-checkbox-checked">
+                                    </telerik:ButtonToggleState>
+                                    <telerik:ButtonToggleState Text="Use Default" Value="null" CssClass="p-i-three-state-indeterminate">
+                                    </telerik:ButtonToggleState>
+                                </ToggleStates>
+                            </telerik:RadToggleButton>
+                        </ItemTemplate>
+                    </telerik:GridTemplateColumn>--%>
                     <telerik:GridBoundColumn DataField="Status" UniqueName="Status" HeaderText="Status" 
                         FilterControlAltText="Filter Status column"
                         FilterCheckListEnableLoadOnDemand="true" AutoPostBackOnFilter="true">
