@@ -1,5 +1,11 @@
 ﻿var graffiti;
 
+window.onbeforeunload = function () {
+    Graffiti_CloseEvent.SaveLogout.SaveLogoffInf();
+
+    alert ("Web browser is closed!");
+};
+
 if (!graffiti) {
     graffiti = {};
     if (!graffiti.RadContextMenu) {

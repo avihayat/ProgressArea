@@ -19,6 +19,8 @@ public partial class _Default : System.Web.UI.Page
         {
             //Do not display SelectedFilesCount progress indicator.
             RadProgressArea1.ProgressIndicators &= ~ProgressIndicators.SelectedFilesCount;
+
+            Session["TestData"] = "UserName is avi";
         }
     }
     protected void buttonSubmit_Click(object sender, System.EventArgs e)
@@ -49,9 +51,9 @@ public partial class _Default : System.Web.UI.Page
             {
                 DataRow drValues = dtValues.NewRow();
                 drValues["Id"] = i.ToString();
-                drValues["Items"] = (i <= 5 ? "Item " : "Item is to long for excel-like filter" ) + (i+1).ToString();
-                drValues["Rate"] = "Rate " + (i+1).ToString();
-                var dt = new DateTime(2017, i+1, 1);
+                drValues["Items"] = (i <= 5 ? "Item " : "Item is to long for excel-like filter") + (i + 1).ToString();
+                drValues["Rate"] = "Rate " + (i + 1).ToString();
+                var dt = new DateTime(2017, i + 1, 1);
                 drValues["MyDate"] = dt;
                 if (i <= 3)
                     drValues.SetField("State", DBNull.Value);
@@ -100,14 +102,14 @@ public partial class _Default : System.Web.UI.Page
         {
             GridDataItem item = (GridDataItem)e.Item;
             RadButton btn = (RadButton)item.FindControl("State");//accessing Label
-            //bool? itemValue = item.DataItem["State"];
+                                                                 //bool? itemValue = item.DataItem["State"];
             object o = ((DataRowView)e.Item.DataItem)["State"];
             bool? b;
             if (o == DBNull.Value)
                 b = null;
             else
                 b = (bool?)((DataRowView)e.Item.DataItem)["State"];
-            btn.SetSelectedToggleStateByValue( b.HasValue ? (b.Value ? "1" : "0") : "null");
+            btn.SetSelectedToggleStateByValue(b.HasValue ? (b.Value ? "1" : "0") : "null");
         }
     }
 
@@ -141,7 +143,7 @@ public partial class _Default : System.Web.UI.Page
         string DataField = (e.Column as IGridDataColumn).GetActiveDataField();
 
         dtValues = (DataTable)Session["Table"];
-        var productsQuery = dtValues.AsEnumerable().Select(rec=> rec.Field<string>(DataField));
+        var productsQuery = dtValues.AsEnumerable().Select(rec => rec.Field<string>(DataField));
         var selectedColumn = from m in dtValues.AsEnumerable() select new { Text = m.Field<string>(DataField) };
 
         e.ListBox.DataSource = GetListBoxSource(DataField);
@@ -232,7 +234,7 @@ public partial class _Default : System.Web.UI.Page
         UpdateProgressContext(lst);
         if (bCanceledByUser)
         {
-            for (int i = 1; i  < 100; i++)
+            for (int i = 1; i < 100; i++)
                 Thread.Sleep(100);
         }
 
@@ -258,8 +260,8 @@ public partial class _Default : System.Web.UI.Page
     protected void RadGrid1_PreRender(object sender, EventArgs e)
     {
         //GridHeaderItem header = RadGrid1.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
-        var headers = RadGrid1.MasterTableView.GetItems(GridItemType.Header);
- 
+        //var headers = RadGrid1.MasterTableView.GetItems(GridItemType.Header);
+
         foreach (GridColumn col in RadGrid1.MasterTableView.RenderColumns
                .OfType<IGridDataColumn>().Where(x => x.AllowFiltering))
         {
@@ -267,8 +269,9 @@ public partial class _Default : System.Web.UI.Page
             {
                 for (int i = 0; i < 1 /* headers.Count() */ ; i++)
                 {
-                    GridHeaderItem header = headers[i] as GridHeaderItem;
-                    TableCell cell = header[col.UniqueName];
+                    //GridHeaderItem header = headers[i] as GridHeaderItem;
+                    //TableCell cell = header[col.UniqueName];
+                    TableCell cell = RadGrid1.MasterTableView.GetHeaderCellByColumnUniqueName(col.UniqueName);
 
                     //style the cell as desired (e.g., change class, background color, add image, etc.
                     //cell.CssClass = "rgFiltered";
@@ -332,6 +335,4 @@ public partial class _Default : System.Web.UI.Page
     {
 
     }
-
-
 }

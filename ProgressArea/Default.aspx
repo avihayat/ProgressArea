@@ -16,6 +16,9 @@
     <form id="form1" runat="server">
 
         <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+            <Services>
+                <asp:ServiceReference Path="~/WebService/SaveLogout.asmx" />
+            </Services>
             <Scripts>
                 <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.Core.js" />
                 <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.jQuery.js" />
