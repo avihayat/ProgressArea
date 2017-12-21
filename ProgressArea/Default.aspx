@@ -95,7 +95,7 @@
                     masterTable.rebind();
                     radalert("Canceled By User", "400", "250", "alert");
                 }
-            </script>
+        </script>
         </telerik:RadCodeBlock>
             <script type="text/javascript" src="Content/Script/radScript.js"></script>
                 <script type="text/javascript">

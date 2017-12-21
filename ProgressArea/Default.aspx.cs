@@ -300,6 +300,10 @@ public partial class _Default : System.Web.UI.Page
                 }
             }
         }
+
+        var lb = RadGrid1.FindControl("filterCheckList") as RadListBox;
+        //lb.ShowCheckAll = false;
+        lb.OnClientCheckAllChecking = "graffiti.OnClientCheckAllChecking";
     }
 
     // Clear All Filters

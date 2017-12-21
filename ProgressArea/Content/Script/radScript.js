@@ -26,6 +26,38 @@ graffiti.adjustRTL = function() {
     });
 }
 
+graffiti.OnClientCheckAllChecking = function (sender, args) {
+    // cancel the event
+    args.set_cancel(true);
+
+    var target = $telerik.$(args.get_domEvent().target); // get a reference to the element that was targeted by the click event
+    var checkbox = sender.get_checkAllCheckBox(); // get a reference to the "Check All" checkbox
+
+    // get all the items from the checklistbox
+    var items = sender.get_items();
+
+    // condition to check whether the target element for the click event is the "Check All" checkbox input or the label
+    if ((target.is("label") || target.is(".rlbCheckAllItemsCheckBox"))) {
+        if (checkbox.checked) {
+            // loop through the items
+            items.forEach(function (item) {
+                // check the checkbox only for the visible items
+                if ($telerik.$(item.get_element()).is(":visible")) {
+                    item.check();
+                }
+                else {
+                    item.uncheck();
+                }
+            });
+        } else {
+            // uncheck the "Check All" checkbox
+            sender.get_checkAllCheckBox().checked = false;
+            // uncheck all items
+            sender.uncheckItems(items);
+        }
+    }
+}
+
 var controlIDs = [];
 var gridCol;
 //var customWidthClassName = '';
