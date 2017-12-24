@@ -15,6 +15,7 @@ public partial class Check_all_from_results : System.Web.UI.Page
         //lb.ShowCheckAll = false;
         lb.OnClientCheckAllChecking = "OnClientCheckAllChecking";
     }
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -24,6 +25,8 @@ public partial class Check_all_from_results : System.Web.UI.Page
     {
         RadGrid1.DataSource = GetGridSource();
     }
+
+    #region DataTable GetGridSource
     private DataTable GetGridSource()
     {
         DataTable dataTable = new DataTable();
@@ -63,14 +66,64 @@ public partial class Check_all_from_results : System.Web.UI.Page
             row["OrderID"] = i + 1;
             row["OrderDate"] = DateTime.Now;
             row["Freight"] = (i + 1) + (i + 1) * 0.1 + (i + 1) * 0.01;
-            row["ShipName"] = "Name " + (i + 1);
-            row["ShipCountry"] = "Country " + (i + 1);
+
+            if (i % 9 == 0)
+            {
+                row["ShipCountry"] = "Austria";
+            }
+            else if (i % 8 == 0)
+            {
+                row["ShipCountry"] = "Belgium";
+            }
+            else if (i % 7 == 0)
+            {
+                row["ShipCountry"] = "France";
+            }
+            else if (i % 6 == 0)
+            {
+                row["ShipCountry"] = "Spain";
+            }
+            else if (i % 5 == 0)
+            {
+                row["ShipCountry"] = "Germany";
+            }
+            else if (i % 4 == 0)
+            {
+                row["ShipCountry"] = "Denmark";
+            }
+            else if (i % 3 == 0)
+            {
+                row["ShipCountry"] = "Bulgaria";
+            }
+            else if (i % 2 == 0)
+            {
+                row["ShipCountry"] = "Hungary";
+            }
+            else
+            {
+                row["ShipCountry"] = "Poland";
+            }
+
+            if (i % 3 == 0)
+            {
+                row["ShipName"] = "Fedex";
+            }
+            else if (i % 2 == 0)
+            {
+                row["ShipName"] = "DHL";
+            }
+            else
+            {
+                row["ShipName"] = "UPS";
+            }
+
 
             dataTable.Rows.Add(row);
         }
 
         return dataTable;
     }
+    #endregion
 
     protected void RadGrid1_FilterCheckListItemsRequested(object sender, GridFilterCheckListItemsRequestedEventArgs e)
     {
@@ -82,7 +135,6 @@ public partial class Check_all_from_results : System.Web.UI.Page
         e.ListBox.DataTextField = DataField;
         e.ListBox.DataValueField = DataField;
         e.ListBox.DataBind();
-
     }
 
     protected void RadGrid1_PreRender(object sender, EventArgs e)

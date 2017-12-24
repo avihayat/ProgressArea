@@ -49,6 +49,7 @@ graffiti.OnClientCheckAllChecking = function (sender, args) {
                     item.uncheck();
                 }
             });
+            checkbox.checked = true;
         } else {
             // uncheck the "Check All" checkbox
             sender.get_checkAllCheckBox().checked = false;

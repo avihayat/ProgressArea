@@ -6,10 +6,6 @@
 <head runat="server">
     <title></title>
     <style>
-        #tshirt {
-            color: #fff;
-            background: #000;
-        }
     </style>
 </head>
 <body>
@@ -25,7 +21,7 @@
             function OnClientCheckAllChecking(sender, args) {
                 // cancel the event
                 args.set_cancel(true);
-                
+
                 var target = $telerik.$(args.get_domEvent().target); // get a reference to the element that was targeted by the click event
                 var checkbox = sender.get_checkAllCheckBox(); // get a reference to the "Check All" checkbox
 
@@ -34,19 +30,31 @@
 
                 // condition to check whether the target element fo the click event is the "Check All" checkbox input or the label
                 if ((target.is("label") || target.is(".rlbCheckAllItemsCheckBox"))) {
-                    if (checkbox.checked) {
-                        // loop through the items
+
+                    /* This condition should be if(!checked), in case the "Check All" checkbox is about to be checked, 
+                    its checked status will return false. */
+                    if (!checkbox.checked) {
+
+                        // loop through the items returned by search result and check them all
                         items.forEach(function (item) {
-                            // check the checkbox only for the visible items
                             if ($telerik.$(item.get_element()).is(":visible")) {
                                 item.check();
+                            } else {
+                                item.uncheck();
                             }
                         });
+
+                        /*
+                        Check the "Check All" checkbox at this point because its checked state can toggle based on the selected items on the list
+                        If all items are selected, this will automatically gets checked, or if there is at least one item unchecked, its check status will be cleared as well
+                        */
+                        checkbox.checked = true;
                     } else {
-                        // uncheck the "Check All" checkbox
-                        sender.get_checkAllCheckBox().checked = false;
                         // uncheck all items
                         sender.uncheckItems(sender.get_items())
+
+                        // uncheck the "Check All" checkbox
+                        checkbox.checked = false;
                     }
                 }
             }
