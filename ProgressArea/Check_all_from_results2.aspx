@@ -1,12 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Check_all_from_results.aspx.cs" Inherits="Check_all_from_results" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Check_all_from_results2.aspx.cs" Inherits="Cases_Grid_Filtering_Excel_Like_1145449_Check_all_from_results2" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <style>
-    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -18,21 +16,31 @@
             </Scripts>
         </telerik:RadScriptManager>
         <script type="text/javascript">
-            var checkedState = false;
-            function listBoxLoad(sender, args) {
-                var checkAllCheckBox = sender.get_checkAllCheckBox();
-                var checkAllItem = $(checkAllCheckBox).parents("li").first();
-                checkAllItem.on("mousedown", function (event) {
-                    checkedState = checkAllCheckBox.checked;
-                });
-            }
-            function CheckAllChecked(sender, args) {
-                var items = sender.get_items();
-                for (var i = 0; i < items.get_count() ; i++) {
-                    var item = items.getItem(i);
-                    item.set_checked(!checkedState && item.get_visible());
+            function OnClientCheckAllChecking(sender, args) {
+                args.set_cancel(true);
+                var target = $telerik.$(args.get_domEvent().target); // get a reference to the element that was targeted by the click event
+                var checkbox = sender.get_checkAllCheckBox(); // get a reference to the "Check All" checkbox
+                var items = sender.get_items(); // get all the items from the checklistbox
+                var IsCheckAllChecked = false;
+                if (target.is("label") && !checkbox.checked || target.is(".rlbCheckAllItemsCheckBox") && checkbox.checked) { // condition to check whether the target element fo the click event is the "Check All" checkbox input or the label
+                    IsCheckAllChecked = true;
+                    checkItems(items);
+                } else {
+                    sender.uncheckItems(sender.get_items()); // uncheck all items
                 }
-                sender.get_checkAllCheckBox().checked = !checkedState;
+                setTimeout(function () {
+                    items._parent.get_checkAllCheckBox().checked = IsCheckAllChecked;
+                }, 10);
+            }
+
+            function checkItems(items) {
+                items.forEach(function (item) {
+                    if ($telerik.$(item.get_element()).is(":visible")) {
+                        item.check();
+                    } else {
+                        item.uncheck();
+                    }
+                });
             }
         </script>
         <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">

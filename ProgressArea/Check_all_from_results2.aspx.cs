@@ -7,21 +7,24 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 
-public partial class Check_all_from_results : System.Web.UI.Page
+public partial class Cases_Grid_Filtering_Excel_Like_1145449_Check_all_from_results2 : System.Web.UI.Page
 {
     protected void Page_PreRender(object sender, EventArgs e)
     {
         var lb = RadGrid1.FindControl("filterCheckList") as RadListBox;
-        lb.OnClientLoad = "listBoxLoad";
-        lb.OnClientCheckAllChecked = "CheckAllChecked";
+        lb.OnClientCheckAllChecking = "OnClientCheckAllChecking";
     }
+
     protected void Page_Load(object sender, EventArgs e)
     {
+
     }
+
     protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
     {
         RadGrid1.DataSource = GetGridSource();
     }
+
     #region DataTable GetGridSource
     private DataTable GetGridSource()
     {
@@ -120,9 +123,11 @@ public partial class Check_all_from_results : System.Web.UI.Page
         return dataTable;
     }
     #endregion
+
     protected void RadGrid1_FilterCheckListItemsRequested(object sender, GridFilterCheckListItemsRequestedEventArgs e)
     {
         string DataField = (e.Column as IGridDataColumn).GetActiveDataField();
+
         e.ListBox.DataSource = GetGridSource().DefaultView.ToTable(true, DataField);
         e.ListBox.DataKeyField = DataField;
         e.ListBox.DataTextField = DataField;

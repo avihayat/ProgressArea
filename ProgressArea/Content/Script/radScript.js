@@ -26,37 +26,46 @@ graffiti.adjustRTL = function() {
     });
 }
 
-graffiti.OnClientCheckAllChecking = function (sender, args) {
-    // cancel the event
-    args.set_cancel(true);
-
-    var target = $telerik.$(args.get_domEvent().target); // get a reference to the element that was targeted by the click event
-    var checkbox = sender.get_checkAllCheckBox(); // get a reference to the "Check All" checkbox
-
-    // get all the items from the checklistbox
-    var items = sender.get_items();
-
-    // condition to check whether the target element for the click event is the "Check All" checkbox input or the label
-    if ((target.is("label") || target.is(".rlbCheckAllItemsCheckBox"))) {
-        if (checkbox.checked) {
-            // loop through the items
-            items.forEach(function (item) {
-                // check the checkbox only for the visible items
-                if ($telerik.$(item.get_element()).is(":visible")) {
-                    item.check();
-                }
-                else {
-                    item.uncheck();
-                }
-            });
-            checkbox.checked = true;
-        } else {
-            // uncheck the "Check All" checkbox
-            sender.get_checkAllCheckBox().checked = false;
-            // uncheck all items
-            sender.uncheckItems(items);
-        }
+// CheckAll button as in Excel
+// Method 1
+var checkedState = false;
+graffiti.FilterListBoxLoad = function (sender, args) {
+    var checkAllCheckBox = sender.get_checkAllCheckBox();
+    var checkAllItem = $(checkAllCheckBox).parents("li").first();
+    checkAllItem.on("mousedown", function (event) {
+        checkedState = checkAllCheckBox.checked;
+    });
+}
+graffiti.CheckAllChecked = function (sender, args) {
+    var allItems = sender.get_items();
+    for (var i = 0; i < allItems.get_count(); i++) {
+        var item = items.getItem(i);
+        item.set_checked(!checkedState && item.get_visible());
     }
+    sender.get_checkAllCheckBox().checked = !checkedState;
+}
+
+// Method 2
+graffiti.OnClientCheckAllChecking = function(sender, args) {
+    args.set_cancel(true);
+    var target = $telerik.$(args.get_domEvent().target); // get a reference to the element that was targeted by the click event
+    var checkAllCheckBox = sender.get_checkAllCheckBox(); // get a reference to the "Check All" checkbox
+    var allItems = sender.get_items(); // get all the items from the checklistbox
+    var IsCheckAllChecked = false;
+    if (target.is("label") && !checkAllCheckBox.checked || target.is(".rlbCheckAllItemsCheckBox") && checkAllCheckBox.checked) { // condition to check whether the target element fo the click event is the "Check All" checkbox input or the label
+        IsCheckAllChecked = true;
+        allItems.forEach(function (item) {
+            item.set_checked(item.get_visible());
+            //if ($telerik.$(item.get_element()).is(":visible")) {
+            //    item.check();
+            //} else {
+            //    item.uncheck();
+            //}
+        });
+    } else {
+        sender.uncheckItems(allItems); // uncheck all items
+    }
+    setTimeout(function () { checkAllCheckBox.checked = IsCheckAllChecked; }, 10);
 }
 
 var controlIDs = [];
