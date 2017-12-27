@@ -27,7 +27,9 @@ graffiti.adjustRTL = function() {
 }
 
 // CheckAll button as in Excel
-// Method 1
+// Method 1 - store the "Check All" checkbox checked state in a variable when its clicked
+//            (for this we bound the onmousedown event handler to it) 
+//            and then set the checked state at a later stage in the application
 var checkedState = false;
 graffiti.FilterListBoxLoad = function (sender, args) {
     var checkAllCheckBox = sender.get_checkAllCheckBox();
@@ -45,7 +47,10 @@ graffiti.CheckAllChecked = function (sender, args) {
     sender.get_checkAllCheckBox().checked = !checkedState;
 }
 
-// Method 2
+// Method 2 - short delay when making the "Check All" checkbox checked/unchecked
+// the reason we applied delay is because at the end of the OnClientCheckAllChecking event, 
+// grid has automatically unchecked the checkbox, thus overriding our rule.Having a little delay,
+// the "Check All" checkbox state will be overridden shortly after the grid has finished its automatic logic
 graffiti.OnClientCheckAllChecking = function(sender, args) {
     args.set_cancel(true);
     var target = $telerik.$(args.get_domEvent().target); // get a reference to the element that was targeted by the click event
@@ -56,11 +61,6 @@ graffiti.OnClientCheckAllChecking = function(sender, args) {
         IsCheckAllChecked = true;
         allItems.forEach(function (item) {
             item.set_checked(item.get_visible());
-            //if ($telerik.$(item.get_element()).is(":visible")) {
-            //    item.check();
-            //} else {
-            //    item.uncheck();
-            //}
         });
     } else {
         sender.uncheckItems(allItems); // uncheck all items
