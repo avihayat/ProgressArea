@@ -18,6 +18,8 @@ $(function () {
 });
 
 graffiti.init = function () {
+    graffiti.hideRadGridHorizonatlScroll();
+    graffiti.SetRadGridHeightFull();
 }
 
 graffiti.adjustRTL = function() {
@@ -25,6 +27,41 @@ graffiti.adjustRTL = function() {
         $(this).parent().prepend(this);
     });
 }
+
+graffiti.hideRadGridHorizonatlScroll = function () {
+    $(".rgDataDiv").addClass("HorizontalScrollOff");
+}
+
+graffiti.SetRadGridHeightFull = function () {
+    var xx = window.innerHeight;
+    var xxxx = window.clientHeight;
+    var windowHeight = $(window).height();
+    var windowScrollTop = $(window).scrollTop();
+    var outerHeight = window.outerHeight;
+    var zz = $(".rgDataDiv").clientHeight;
+    var radGridDataPos = $(".rgDataDiv").position();
+    var radGridPos = $(".RadGrid").position();
+    var zzxx = $(".rgDataDiv").viewportHeight;
+    var itemHeight = $(".rgDataDiv .rgRow").height();
+
+    var nItems = Math.floor((windowHeight - (radGridDataPos.top + radGridPos.top)) / itemHeight);
+    //var grid = $find('RadGrid1');
+    //var masterTableView = grid.get_masterTableView();
+    ////var value = $find('<%= RadNumericTextBox1.ClientID %>').get_value();
+    ////if (value != "")
+    //{
+    //    masterTableView.set_pageSize(nItems);
+    //    masterTable.rebind();
+    //}
+
+    //var pos = document.body.position();
+    var xxx = $(document).height();
+    viewportHeight = document.body.clientHeight;
+    viewportWidth = document.body.clientWidth;
+
+    $(".rgDataDiv").height(windowHeight - (radGridDataPos.top + radGridPos.top));
+}
+
 
 // CheckAll button as in Excel
 // Method 1 - store the "Check All" checkbox checked state in a variable when its clicked

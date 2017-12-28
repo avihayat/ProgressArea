@@ -1,4 +1,13 @@
-﻿/* filter & clearFilter buttons */
+﻿/* radgrid */
+.RadGridRTL .rgHeaderDiv {
+    margin-right: 0px !important;
+}
+
+.RadGrid .rgDataDiv.HorizontalScrollOff {
+    overflow-x: hidden !important;
+}
+
+/* filter & clearFilter buttons */
 .GridContextMenu .rgFilterMenu .rgHCMFilter {
     margin-left: 10px !important;
 }

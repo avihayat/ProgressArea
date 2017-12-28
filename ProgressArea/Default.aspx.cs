@@ -47,13 +47,13 @@ public partial class _Default : System.Web.UI.Page
 
         if (dtValues.Rows.Count == 0)
         {
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < 24; i++)
             {
                 DataRow drValues = dtValues.NewRow();
                 drValues["Id"] = i.ToString();
                 drValues["Items"] = (i <= 5 ? "Item " : "Item is to long for excel-like filter") + (i + 1).ToString();
                 drValues["Rate"] = "Rate " + (i + 1).ToString();
-                var dt = new DateTime(2017, i + 1, 1);
+                var dt = new DateTime(2017, (i%12) + 1, 1);
                 drValues["MyDate"] = dt;
                 if (i <= 3)
                     drValues.SetField("State", DBNull.Value);
