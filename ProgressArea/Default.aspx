@@ -153,6 +153,13 @@ ReloadOnShow="true" Style="z-index: 7001">
                     <telerik:RadPushButton runat="server" ID="ClearFilters"
                          ToolTip="Clear Filters" OnClick="RadButton_ClearAllFilters_Click" Icon-CssClass="ClearAllFiltersIcon">
                     </telerik:RadPushButton>
+                    <telerik:RadDropDownList RenderMode="Lightweight" ID="RadComboBoxPaymentMethod" runat="server">
+                        <Items>   
+                            <telerik:DropDownListItem runat="server" Text="RadComboBoxItem1" />   
+                            <telerik:DropDownListItem runat="server" Text="RadComboBoxItem2" />   
+                            <telerik:DropDownListItem runat="server" Text="RadComboBoxItem3" />
+                        </Items>
+                    </telerik:RadDropDownList>
                 </div>
             </CommandItemTemplate>
             <ColumnGroups>
