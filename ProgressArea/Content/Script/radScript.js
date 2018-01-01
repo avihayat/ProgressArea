@@ -18,8 +18,12 @@ $(function () {
 });
 
 graffiti.init = function () {
+}
+
+graffiti.GridCreated = function (sender, args) {
+    graffiti.adjustRTL();
     graffiti.hideRadGridHorizonatlScroll();
-    graffiti.SetRadGridHeightFull();
+    graffiti.SetRadGridHeightFull(sender, args);
 }
 
 graffiti.adjustRTL = function() {
@@ -32,7 +36,47 @@ graffiti.hideRadGridHorizonatlScroll = function () {
     $(".rgDataDiv").addClass("HorizontalScrollOff");
 }
 
-graffiti.SetRadGridHeightFull = function () {
+graffiti.SetRadGridHeightFull = function (sender, args) {
+    var gridHeight = sender.get_element().clientHeight;
+
+    //var parent = $get("gridItemsContainer");
+    var parentHeight = document.body.clientHeight;
+
+    var parentHeight = $(window).height();  // my code
+    var gridTop = (sender.TopPagerControl) ? (sender.TopPagerControl).offsetTop : ((sender.GridHeaderDiv) ? sender.GridHeaderDiv.offsetTop : 0);
+    parentHeight = parentHeight - (gridTop + 10);
+
+    var scrollArea = sender.GridDataDiv;
+    var gridTopPagerHeight = (sender.TopPagerControl) ? sender.TopPagerControl.clientHeight : 0;
+    var gridHeaderHeight = (sender.GridHeaderDiv) ? sender.GridHeaderDiv.clientHeight : 0;
+    var gridDataHeight = sender.get_masterTableView().get_element().clientHeight;
+    var gridFooterHeight = (sender.GridFooterDiv) ? sender.GridFooterDiv.clientHeight : 0;
+    var gridPagerHeight = (sender.PagerControl) ? sender.PagerControl.clientHeight : 0;
+
+    var itemHeight = $(".rgDataDiv .rgRow").height();
+    var nItemsCurr = sender.get_masterTableView().get_pageSize();
+    var nDataRows = sender.get_masterTableView().get_dataItems().length;
+    if (nItemsCurr > nDataRows) {
+        nItemsCurr = nDataRows;
+    }
+    var itemHeight = gridDataHeight / nItemsCurr;
+    var h = parentHeight - gridHeaderHeight - gridPagerHeight - gridTopPagerHeight - gridFooterHeight - 2;
+    var nItems = Math.floor(h / itemHeight);
+    if (nItems >= nItemsCurr) {
+        sender.get_masterTableView().set_pageSize(nItems);
+    }
+    scrollArea.style.height = (nItems * itemHeight) + "px";
+
+        //if (gridDataHeight < 350 || parentHeight > (gridDataHeight + gridHeaderHeight + gridPagerHeight + gridTopPagerHeight + gridFooterHeight)) {
+        //    scrollArea.style.height = gridDataHeight + "px";
+        //} else
+        //{
+        //    scrollArea.style.height = (parentHeight - gridHeaderHeight - gridPagerHeight - gridTopPagerHeight - gridFooterHeight - 2) + "px"
+        //}
+    //}
+}
+
+graffiti.SetRadGridHeightFull_MY = function (sender, args) {
     var xx = window.innerHeight;
     var xxxx = window.clientHeight;
     var windowHeight = $(window).height();

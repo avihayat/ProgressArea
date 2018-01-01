@@ -132,14 +132,15 @@ ReloadOnShow="true" Style="z-index: 7001">
             AutoGenerateColumns="false" OnNeedDataSource="RadGrid1_NeedDataSource"
             FilterType="HeaderContext" EnableHeaderContextMenu="true"  EnableHeaderContextFilterMenu="true"
             OnFilterCheckListItemsRequested="RadGrid1_FilterCheckListItemsRequested" 
-            AllowFilteringByColumn="true"
+            AllowFilteringByColumn="true" 
+            AllowPaging="true"  PagerStyle-AlwaysVisible="true"
             AllowSorting="true" AllowMultiRowSelection="True"
              OnPreRender="RadGrid1_PreRender"
              OnItemDataBound="RadGrid1_ItemDataBound">
             <ClientSettings AllowKeyboardNavigation="true">
                 <Selecting AllowRowSelect="True" />
                 <Scrolling AllowScroll="true" UseStaticHeaders="true" />
-                <ClientEvents OnHeaderMenuShowing="onMenuShowing" OnGridCreated="graffiti.adjustRTL" />
+                <ClientEvents OnHeaderMenuShowing="onMenuShowing" OnGridCreated="graffiti.GridCreated" />
             </ClientSettings>
             <HeaderContextMenu OnClientShown="onMenuShown" OnClientHiding="onMenuHiding"  CssClass="myCustomFilterWidth myCustomFilterWidth_500">
                 <CollapseAnimation Type="None" />
