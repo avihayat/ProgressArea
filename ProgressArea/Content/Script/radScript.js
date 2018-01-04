@@ -54,15 +54,15 @@ graffiti.SetRadGridHeightFull = function (sender, args) {
     var gridPagerHeight = (sender.PagerControl) ? sender.PagerControl.clientHeight : 0;
 
     var itemHeight = $(".rgDataDiv .rgRow").height();
-    var nItemsCurr = sender.get_masterTableView().get_pageSize();
+    var nItemsRequested = sender.get_masterTableView().get_pageSize();
     var nDataRows = sender.get_masterTableView().get_dataItems().length;
-    if (nItemsCurr > nDataRows) {
-        nItemsCurr = nDataRows;
+    if (nItemsRequested > nDataRows) {
+        nItemsRequested = nDataRows;
     }
-    var itemHeight = gridDataHeight / nItemsCurr;
+    var itemHeight = gridDataHeight / nItemsRequested;
     var h = parentHeight - gridHeaderHeight - gridPagerHeight - gridTopPagerHeight - gridFooterHeight - 2;
     var nItems = Math.floor(h / itemHeight);
-    if (nItems >= nItemsCurr) {
+    if (nItems >= nItemsRequested) {
         sender.get_masterTableView().set_pageSize(nItems);
     }
     scrollArea.style.height = (nItems * itemHeight) + "px";
