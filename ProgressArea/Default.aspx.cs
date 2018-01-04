@@ -47,7 +47,7 @@ public partial class _Default : System.Web.UI.Page
 
         if (dtValues.Rows.Count == 0)
         {
-            for (int i = 0; i < 24; i++)
+            for (int i = 0; i < 124; i++)
             {
                 DataRow drValues = dtValues.NewRow();
                 drValues["Id"] = i.ToString();
