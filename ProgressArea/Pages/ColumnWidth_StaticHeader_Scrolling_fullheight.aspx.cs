@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 
 public partial class ColumnWidth_StaticHeader_Scrolling_fullheight : System.Web.UI.Page
