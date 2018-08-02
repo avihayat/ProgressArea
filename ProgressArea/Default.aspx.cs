@@ -47,7 +47,7 @@ public partial class _Default : System.Web.UI.Page
 
         if (dtValues.Rows.Count == 0)
         {
-            for (int i = 0; i < 124; i++)
+            for (int i = 0; i < 1240; i++)
             {
                 DataRow drValues = dtValues.NewRow();
                 drValues["Id"] = i.ToString();
@@ -134,8 +134,51 @@ public partial class _Default : System.Web.UI.Page
         dtValues = (DataTable)Session["Table"];
         DataTable table = dtValues.Clone();
         table.Rows.Clear();
-        dtValues.Rows.Cast<DataRow>().Distinct<DataRow>(new DataRowComparer(dataField))
-            .ToList().ForEach(x => table.ImportRow(x));
+
+        string filterExp = RadGrid1.MasterTableView.FilterExpression;
+
+        string filterSqlExp = string.Empty;
+        foreach (GridColumn column in RadGrid1.MasterTableView.Columns)
+        {
+            if (column.ListOfFilterValues == null)
+                continue;
+
+            var x1 = column.CurrentFilterFunction;
+            var x2 = column.CurrentFilterValue;
+            var x3 = column.EvaluateFilterExpression();
+
+
+            if (dataField == column.UniqueName)
+                continue;
+
+            if (!string.IsNullOrEmpty(filterSqlExp))
+                filterSqlExp += " and ";
+            filterSqlExp += " " + column.UniqueName + " in (";
+            bool firstItem = true;
+            foreach (var item in column.ListOfFilterValues)
+            {
+                if (!firstItem)
+                    filterSqlExp += ",";
+                else
+                    firstItem = false;
+
+                filterSqlExp += "'" + item.ToString() + "'";
+            }
+            filterSqlExp += ")";
+        }
+
+        //filterExp = "Items='Item 2' or Items='Item 3'";
+        if (!string.IsNullOrEmpty(filterSqlExp))
+        {
+            var dr = dtValues.Select(filterSqlExp);
+            dr.Cast<DataRow>().Distinct<DataRow>(new DataRowComparer(dataField))
+                .ToList().ForEach(x => table.ImportRow(x));
+        }
+        else
+        {
+            dtValues.Rows.Cast<DataRow>().Distinct<DataRow>(new DataRowComparer(dataField))
+                .ToList().ForEach(x => table.ImportRow(x));
+        }
         return table;
     }
     protected void RadGrid1_FilterCheckListItemsRequested(object sender, GridFilterCheckListItemsRequestedEventArgs e)
